@@ -46,11 +46,6 @@ jobs:
           java-version: 21
           distribution: zulu
 
-      - name: Install CocoaPods
-        run: |
-          sudo gem install cocoapods
-          pod install
-
       - name: Build App
         run: |
           xcodebuild -project ./iosApp/iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO

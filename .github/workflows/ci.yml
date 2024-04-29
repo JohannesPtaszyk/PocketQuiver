@@ -1,0 +1,47 @@
+name: "CI"
+
+on: [push, pull_request]
+
+jobs:
+  android-build-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: zulu
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+
+      - name: Set up environment
+        run: |
+          chmod +x gradlew
+
+      - name: Assemble Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest
+
+  ios-build-debug:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Xcode
+        uses: actions/setup-xcode@v2
+        with:
+          xcode-version: '13.2'
+
+      - name: Install CocoaPods
+        run: |
+          sudo gem install cocoapods
+          pod install
+
+      - name: Build App
+        run: |
+          xcodebuild -project ./iosApp/iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO

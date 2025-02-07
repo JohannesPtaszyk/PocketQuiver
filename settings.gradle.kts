@@ -1,6 +1,8 @@
+
 rootProject.name = "PocketQuiver"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+@Suppress("UnstableApiUsage")
 pluginManagement {
     repositories {
         google {
@@ -15,6 +17,7 @@ pluginManagement {
     }
 }
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositories {
         google {
@@ -27,5 +30,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+includeBuild("build-logic")
 
 include(":composeApp")

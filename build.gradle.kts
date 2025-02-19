@@ -1,3 +1,10 @@
+buildscript {
+    dependencies {
+        // Workaround https://issuetracker.google.com/issues/380600747
+        classpath("org.bouncycastle:bcutil-jdk18on:1.80")
+    }
+}
+
 plugins {
     // this is necessary to avoid the plugins to be loaded multiple times
     // in each subproject's classloader
